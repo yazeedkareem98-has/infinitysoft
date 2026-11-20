@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create an account or sign in to InfinitySoft.">
+  <meta name="theme-color" content="#020914">
+  <title>Login / Sign Up | InfinitySoft</title>
+  <link rel="stylesheet" href="SIGN.css">
+</head>
+<body>
+  <a class="back-home" href="index.html">← Back to InfinitySoft</a>
+  <main class="auth-shell">
+    <a class="brand" href="index.html">INFINITY<span>SOFT</span></a>
+    <p class="eyebrow">WELCOME TO INFINITYSOFT</p>
+    <div class="wrapper" id="authWrapper">
+      <div class="title-text">
+        <div class="title login-title">Welcome Back</div>
+        <div class="title signup-title">Create Account</div>
+      </div>
+      <p class="subtitle" id="authSubtitle">Sign in to continue your journey.</p>
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login-label">Login</label>
+        <label for="signup" class="slide signup-label">Sign Up</label>
+        <div class="slider-tab"></div>
+      </div>
+      <div class="form-container">
+        <div class="form-inner">
+          <form class="auth-form login-form" id="loginForm">
+            <label class="field"><span>Email address</span><input type="email" name="loginEmail" placeholder="name@example.com" autocomplete="email" required></label>
+            <label class="field"><span>Password</span><input type="password" name="loginPassword" placeholder="Enter your password" autocomplete="current-password" required minlength="6"></label>
+            <button class="submit-btn" type="submit">Login <span>→</span></button>
+            <p class="form-note">New to InfinitySoft? <a href="#" data-switch="signup">Create an account</a></p>
+          </form>
+          <form class="auth-form signup-form" id="signupForm">
+            <label class="field"><span>Your name</span><input type="text" name="name" placeholder="Your full name" autocomplete="name" required></label>
+            <label class="field"><span>Email address</span><input type="email" name="email" placeholder="name@example.com" autocomplete="email" required></label>
+            <label class="field"><span>Password</span><input type="password" name="password" placeholder="At least 6 characters" autocomplete="new-password" required minlength="6"></label>
+            <label class="field"><span>Confirm password</span><input type="password" name="confirmPassword" placeholder="Repeat your password" autocomplete="new-password" required minlength="6"></label>
+            <button class="submit-btn" type="submit">Create Account <span>→</span></button>
+            <p class="form-note">Already have an account? <a href="#" data-switch="login">Login</a></p>
+          </form>
+        </div>
+      </div>
+      <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+      <p class="auth-foot">© 2026 InfinitySoft. All rights reserved.</p>
+    </div>
+  </main>
+  <script>
+    const wrapper = document.getElementById('authWrapper');
+    const loginRadio = document.getElementById('login');
+    const signupRadio = document.getElementById('signup');
+    const subtitle = document.getElementById('authSubtitle');
+    const message = document.getElementById('authMessage');
+
+    function setMode(mode) {
+      const isSignup = mode === 'signup';
+      wrapper.classList.toggle('is-signup', isSignup);
+      signupRadio.checked = isSignup;
+      loginRadio.checked = !isSignup;
+      subtitle.textContent = isSignup ? 'Join us and start building something great.' : 'Sign in to continue your journey.';
+      message.textContent = '';
+    }
+    loginRadio.addEventListener('change', () => setMode('login'));
+    signupRadio.addEventListener('change', () => setMode('signup'));
+    document.querySelectorAll('[data-switch]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        setMode(link.dataset.switch);
+      });
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const password = form.elements.password.value;
+      const confirmation = form.elements.confirmPassword.value;
+      if (password !== confirmation) {
+        message.textContent = 'Passwords do not match. Please check and try again.';
+        message.classList.add('error');
+        form.elements.confirmPassword.focus();
+        return;
+      }
+      message.classList.remove('error');
+      message.textContent = 'The form is ready. Account creation needs a secure authentication backend.';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', event => {
+      event.preventDefault();
+      message.classList.remove('error');
+      message.textContent = 'Login interface is working. Connect an authentication backend to sign in securely.';
+    });
+  </script>
+</body>
+</html>
