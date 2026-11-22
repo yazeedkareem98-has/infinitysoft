@@ -55,3 +55,9 @@ body {
   .wrapper { padding: 26px 20px; border-radius: 18px; }
   .back-home { top: 22px; left: 18px; }
 }
+
+/* Privacy and terms consent */
+.consent { display: flex; align-items: flex-start; gap: 10px; color: #aebdce; font-size: .72rem; line-height: 1.55; font-weight: 400; }
+.consent input { flex: 0 0 16px; width: 16px; height: 16px; margin-top: 2px; accent-color: var(--cyan); cursor: pointer; }
+.consent a { color: var(--cyan); text-decoration: underline; text-underline-offset: 2px; }
+.consent a:hover { color: #fff; }
